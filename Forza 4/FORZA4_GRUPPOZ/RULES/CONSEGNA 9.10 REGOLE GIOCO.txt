@@ -1,0 +1,35 @@
+Forza 4 è un gioco da tavolo classico in cui due giocatori cercano di ottenere una fila di quattro pedine dello stesso colore (orizzontalmente, verticalmente o diagonalmente) su una griglia 6x7. Ecco le regole di base per giocare a Forza 4:
+
+Numero di giocatori: Forza 4 è un gioco per due giocatori.
+
+Componenti del gioco:
+
+Una griglia di gioco 6x7.
+42 pedine (21 di un colore per ciascun giocatore).
+Obiettivo del gioco:
+
+L'obiettivo del gioco è ottenere per primo una fila di quattro pedine dello stesso colore in orizzontale, in verticale o in diagonale sulla griglia di gioco.
+Turno di gioco:
+
+I giocatori prendono i turni per inserire una pedina nella griglia.
+Il giocatore che inizia può inserire la sua pedina in qualsiasi colonna vuota.
+Regole per inserire le pedine:
+
+Le pedine vengono inserite dalla parte superiore della colonna scelta e cadono verso il basso fino a quando raggiungono la pedina più in basso nella colonna o il fondo della griglia.
+Una volta che una pedina è stata inserita, non può più essere rimossa.
+Vittoria:
+
+Il gioco termina quando uno dei giocatori ha quattro delle sue pedine in fila orizzontalmente, verticalmente o diagonalmente, o quando la griglia è completamente riempita senza che nessun giocatore abbia ottenuto una fila di quattro pedine. In questo caso, il gioco finisce in parità.
+Esempio di vittoria:
+
+Ecco un esempio di una vittoria in Forza 4:
+  1 2 3 4 5 6 7
+1 . . . . . . .
+2 . . . . . . .
+3 . . . . X . .
+4 . . . X O . .
+5 . . X O O . .
+6 . X O X X . .
+
+Il giocatore X ha ottenuto una fila di quattro pedine in diagonale (dal basso a sinistra verso l'alto a destra) e vince la partita.
+Queste sono le regole di base per giocare a Forza 4. È un gioco semplice ma richiede strategia e pianificazione per vincere.

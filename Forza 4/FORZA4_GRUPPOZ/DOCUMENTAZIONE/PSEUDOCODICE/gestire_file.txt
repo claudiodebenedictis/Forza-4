@@ -1,0 +1,42 @@
+FUNZIONE salvaPartita
+DATI DI INPUT=
+    tabella, struttura di tipo Gioco di dimensione RIGA , COLONNA
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    fp, puntatore a file
+    i, intero >0 ,contatore
+INIZIO
+fp = APRIRE FILE "game.bin" 
+    i = 0
+    MENTRE (i < RIGA * COLONNA)
+        STAMPA_A_VIDEO tabella in posizione i, i NEL FILE fp
+        i = i + 1
+    FINE MENTRE
+CHIUDI fp
+FINE
+
+FUNZIONE caricaPartita
+DATI DI INPUT=
+    tabella, struttura di tipo Gioco di dimensione RIGA , COLONNA
+   game.bin, File binario
+DATI DI OUTPUT=
+   Esito, booleano, 1 se il gioco e' stato caricato, 0 altrimenti
+VARIABILI DI LAVORO=
+    fp, puntatore a file
+    i, intero >0, contatore
+INIZIO
+    fp = APRI FILE "game.bin" IN MODALITA' LETTURA BINARIA
+    SE (fp != NULL)
+        ALLORA
+            i = 0
+            MENTRE (i < RIGA * COLONNA)
+                LEGGI DA FILE fp E SALVA IN tabella  in posizione i
+                i = i + 1
+            FINE MENTRE
+            CHIUDERE fp
+            RESTITUISCI esito=1
+        ALTRIMENTI
+            RESTITUISCI esito=0
+    FINE SE
+

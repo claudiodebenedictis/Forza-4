@@ -1,0 +1,30 @@
+FUNZIONE gestire_aiuto
+DATI DI INPUT=
+    Nessuno
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    scelta, array monodimensionale di caratteri
+    file, puntatore a file
+    c, array monodimensionale di caratteri
+INIZIO
+    file = APRIRE FILE "regole.txt" IN MODALITA' LETTURA
+    SE (file == NULL)
+        ALLORA STAMPA_A_VIDEO "Non riesco a trovare il file 'regole.txt'. Assicurati che il file esista."
+    FINE SE
+
+    MENTRE ((c = LEGGI CARATTERE DA file) != FINE FILE)
+        	STAMPA_A_VIDEO c
+    FINE MENTRE
+    MENTRE ((LEGGERE_DA_TASTIERA)!= “VAI A CAPO”) // Svuota il buffer di input
+    	STAMPA_A_VIDEO “VAI A CAPO”
+    	STAMPA_A_VIDEO “VAI A CAPO”
+    	STAMPA_A_VIDEO "Premi qualsiasi tasto per tornare a giocare..."
+    	scelta = LEGGERE_DA_TASTIERA
+    FINE MENTRE
+    
+    CHIUDERE FILE
+    STAMPA_A_VIDEO "VAI A CAPO"
+    
+FINE
+

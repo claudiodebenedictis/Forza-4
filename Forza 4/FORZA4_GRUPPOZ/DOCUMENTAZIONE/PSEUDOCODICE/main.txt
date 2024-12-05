@@ -1,0 +1,46 @@
+FUNZIONE main
+DATI DI INPUT=
+    argc, intero >0,  numero di parametri, incluso il nome del programma
+    argv, array di puntatori a carattere, array di C-stringhe contenenti i parametri
+DATI DI OUTPUT=
+    
+VARIABILI DI LAVORO=
+    NUMERO1, array di caratteri di dimensione CN
+    NUMERO2, array di caratteri di dimensione CN
+    r, carattere, ausiliari
+    k, carattere, ausiliari
+    scelta,  array di caratteri, contiene la scelta dell’utente
+    tabella, struttura di tipo Gioco di dimensione RIGA,COLONNA
+    tipoGioco, intero >0 & <scelta_aiuto, indica la modalità di gioco dell’utente 
+    tg1, intero >0, turno giocatore 1
+    tg2, intero >0, turno giocatore 2
+    
+INIZIO
+    NUMERO1 = "Giocatore A"
+    NUMERO2 = "Giocatore B"
+    tipoGioco = 0
+ 
+ ESEGUI
+  	
+  	menuPrincipale(tabella, NUMERO1 , NUMERO2 , &tipoGioco, &tg1, &tg2)
+  	// Chiamata alla funzione Struttura_gioco
+  	Struttura_gioco(tipoGioco, scelta, &tg1, &tg2, tabella, NUMERO1 , NUMERO2)
+  	ESEGUI
+		MENTRE ((LEGGERE_DA_TASTIERA)!= 'VAI_A_CAPO')
+  			STAMPA_A_VIDEO "VAI_A_CAPO”
+  			STAMPA_A_VIDEO “Vuoi tornare al menu' o uscire dal gioco? (m/q) "  			
+			Scelta= LEGGERE_DA_TASTIERA 
+  		FINE MENTRE
+       				// Controlla se l'input dell'utente è valido
+        			SE (scelta != 'm') E (scelta != 'M') E (scelta != 'q') E (scelta != 'Q')
+        				ALLORA STAMPA_A_VIDEO "Input non valido. Per favore, inserisci 'm' o 'q'"
+				FINE SE
+  	FINCHE ((scelta == 'm') O (scelta == 'M') O (scelta == 'q') O (scelta == 'Q'))
+  		SE ((scelta == 'q') O (scelta == 'Q'))
+ 			ALLORA STAMPA_A_VIDEO "VAI_A_CAPO” 
+ 			STAMPA_A_VIDEO “Grazie per aver giocato dal gruppo Z!"
+		FINE SE
+  FINCHE ((scelta == 'm') O (scelta == 'M'))
+RESTITUISCI 0
+FINE
+

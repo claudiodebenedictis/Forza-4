@@ -1,0 +1,457 @@
+FUNZIONE giocare_senza_salvataggio
+DATI DI INPUT=
+    NUMERO1, array di caratteri di dimensione CN
+    NUMERO2, array di caratteri di dimensione CN
+    tg1, puntatore a intero, turno giocatore 1
+    tg2, puntatore a intero, turno giocatore 2 
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    tabella, struttura di Gioco di dimensione RIGA ,COLONNA
+    t, intero >0 ,turno
+    f, intero >0 , variabile di supporto
+    nt, intero >0, variabile di supporto
+    r, intero>0, variabile di supporto
+    c, intero >0 , variabile di supporto
+    g, intero >0 , sceglie il giocatore tra giocatore 1 o 2 
+    scelta, array di carattere, indica la scelta
+    tipoGioco, array di interi >0
+    risultato, intero >0, posizione del gettore nella tabella ( da 1 a 8)
+    p, intero >0 , variabile di supporto 
+INIZIO
+    f = FGioca
+    azzera(tabella)
+    ESEGUI
+        SE ( t=1) 
+            ALLORA STAMPA_A_VIDEO "E' il turno di " 
+STAMPA_A_VIDEO  “NUMERO1 , CARATTEREG1 “
+        ALTRIMENTI 
+      STAMPA_A_VIDEO "E' il turno di " 
+     STAMPA_A_VIDEO “NUMERO2 ,CARATTEREG2 “
+        stampa(tabella)
+        SE (g == 1 E tg1 == User) O (g == 2 E tg2 == User)
+            ALLORA
+                MENTRE (1)
+                    ESEGUI
+                        STAMPA_A_VIDEO "In che colonna vuoi mettere il gettone? (Per aprire opzioni premi 0): "
+                        risultato = LEGGERE_DA_TASTIERA
+	         c =risultato
+                        // Pulisce il buffer di input
+                        MENTRE (LEGGERE_DA_TASTIERA) != 'vai a capo'
+                        SE (risultato == 1 E c >= 0)
+                            ALLORA TERMINA CICLO
+                        ALTRIMENTI STAMPA_A_VIDEO "Input non valido. Per favore, inserisci un numero."
+	          FINE SE
+                      FINCHE (1)
+                    SE (c = 0)
+                        ALLORA
+                            ESEGUI
+                                STAMPA_A_VIDEO "Vuoi salvare, uscire o tornare al menu'? (q/m/s): "
+                                Scelta=LEGGERE_DA_TASTIERA	   
+                            FINCHE  (scelta != 'q' E scelta != 'm' E scelta != 's' E scelta != 'Q' E scelta != 'M' E scelta != 'S')
+                            SE (scelta == 'q' O scelta == 'Q')
+                                ALLORA
+                                    STAMPA_A_VIDEO "Arrivederci!"
+                                    TERMINA PROGRAMMA
+                            ALTRIMENTI SE (scelta == 'm' O scelta == 'M')
+                                ALLORA
+                                    //ciclo for per caricare la barra di caricamento
+		    		    p=0
+                                    MENTRE (p<=100)
+                                        mostrare_caricamento_barra(p)
+                                        // Aggiungi una pausa per l'animazione
+                                    FINE MENTRE
+                                    STAMPA_A_VIDEO "VAI_A_CAPO" // Vai a capo alla fine dell'animazione
+                                    // FINE ciclo for per caricare la barra di caricamento
+                          ALTRIMENTI SE (scelta == 's' O scelta == 'S')
+                                ALLORA
+                                    salvaPartita(tabella)
+                                    STAMPA_A_VIDEO "Partita salvata correttamente!  "
+		FINE SE
+                             c = c - 1
+                       SE (c < 0 O c >= COLONNA)
+                        ALLORA CONTINUA
+                       r = inserisci(tabella, c)
+                       SE (r != -1)
+                        ALLORA TERMINA CICLO
+              FINE MENTRE
+        ALTRIMENTI 		// Se gioca il computer
+            c = mossaPC(tabella, g, giocatoreP(g))
+            r = inserisci(tabella, c) // mossaPc ritorna una colonna valida e con spazio
+            Elemento righe in posizione (r*COLONNA+C) di tabella = g
+           STAMPA_A_VIDEO "VAI_A_CAPO”  c = " E STAMPA_A_VIDEO c + 1 E STAMPA_A_VIDEO " VAI_A_CAPO"
+           t Elemento righe in posizione (r*COLONNA+C) di tabella = g
+           f = controllaF(tabella, g, r, c, 1) ? g : f
+         SE (nt == RIGA,COLONNA E f == 0)
+            ALLORA
+                f = FPareggio
+                ESCI CICLO
+    FINCHE (!f)
+    stampaTitolo
+    stampa(tabella)
+    SE (f == 1)
+        ALLORA STAMPA_A_VIDEO "Ha vinto " , NUMERO1 , CARATTEREG1
+    ALTRIMENTI 
+        SE (f == 2)
+        	ALLORA STAMPA_A_VIDEO "Ha vinto " , NUMERO2, CARATTEREG2
+        ALTRIMENTI SE (f == 3)
+     	   ALLORA STAMPA_A_VIDEO "Pareggio"
+        FINE SE
+FINE
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE giocare_con_Salvataggio
+DATI DI INPUT=
+    NUMERO1, array di caratteri di dimensione CN
+    NUMERO2, array di caratteri di dimensione CN
+    tg1, puntatore a intero
+    tg2, puntatore a intero
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    tabella, struttura di Gioco di dimensione RIGA ,COLONNA
+    t, intero >0 , turno
+    f, intero >0 , variabile di supporto
+    nt, intero >0  variabile di supporto
+    r, intero>0 variabile di supporto 
+    c, intero >0 , variabile di supporto
+    g, intero >0 , sceglie il giocatore tra giocatore 1 o 2 
+    scelta, array di carattere, indica la scelta
+    tipoGioco, array di interi >0
+    risultato, intero >0, posizione del gettore nella tabella ( da 1 a 8)
+    p, intero
+INIZIO
+    f = FGioca
+   
+    ESEGUI
+        SE ( t=1) 
+            ALLORA STAMPA_A_VIDEO "E' il turno di " 
+STAMPA_A_VIDEO  “NUMERO1 , CARATTEREG1 “
+        ALTRIMENTI 
+      STAMPA_A_VIDEO "E' il turno di " 
+     STAMPA_A_VIDEO “NUMERO2 ,CARATTEREG2 “
+        stampa(tabella)
+        SE (g == 1 E tg1 == User) O (g == 2 E tg2 == User)
+            ALLORA
+                MENTRE (1)
+                    ESEGUI
+                        STAMPA_A_VIDEO "In che colonna vuoi mettere il gettone? (Per aprire opzioni premi 0): "
+                        risultato = LEGGERE_DA_TASTIERA
+	         c =risultato
+                        // Pulisce il buffer di input
+                        MENTRE ((LEGGERE_DA_TASTIERA) != 'vai a capo')
+                        SE (risultato == 1 E c >= 0)
+                            ALLORA TERMINA CICLO
+                        ALTRIMENTI STAMPA_A_VIDEO "Input non valido. Per favore, inserisci un numero."
+                      FINCHE (1)
+                    SE (c = 0)
+                        ALLORA
+                            RIPETI
+                                STAMPA_A_VIDEO "Vuoi salvare, uscire o tornare al menu'? (q/m/s): "
+                                Scelta=LEGGERE_DA_TASTIERA
+                                // Pulisce il buffer di input
+                                MENTRE ((LEGGERE_DA_TASTIERA) != ‘VAI A CAPO')
+                            FINCHE  (scelta != 'q' E scelta != 'm' E scelta != 's' E scelta != 'Q' E scelta != 'M' E scelta != 'S')
+                            SE (scelta == 'q' O scelta == 'Q')
+                                ALLORA
+                                    STAMPA_A_VIDEO "Arrivederci!"
+                                    TERMINA PROGRAMMA
+                            ALTRIMENTI SE (scelta == 'm' O scelta == 'M')
+                                ALLORA
+                                    //ciclo for per caricare la barra di caricamento
+		      		    p=0
+                                    MENTRE (p<=100)
+                                        mostrare_caricamento_barra(p)
+                                        // Aggiungi una pausa per l'animazione
+                                    FINE MENTRE
+                                    STAMPA_A_VIDEO "VAI_A_CAPO" // Vai a capo alla fine dell'animazione
+                         // FINE ciclo for per caricare la barra di caricamento
+
+                            ALTRIMENTI SE (scelta == 's' O scelta == 'S')
+                                ALLORA
+                                    salvaPartita(tabella)
+                                    STAMPA_A_VIDEO "Partita salvata correttamente!  "
+                     c = c - 1
+                    SE (c < 0 O c >= COLONNA)
+                        ALLORA CONTINUA
+                    r = inserisci(tabella, c)
+                    SE (r != -1)
+                        ALLORA TERMINA CICLO
+                FINE MENTRE
+        ALTRIMENTI 		// Se gioca il computer
+            c = mossaPC(tabella, g, giocatoreP(g))
+            r = inserisci(tabella, c) // mossaPc ritorna una colonna valida e con spazio
+            Elemento righe in posizione (r*COLONNA+C) di tabella = g
+            STAMPA_A_VIDEO "VAI_A_CAPO”  c = " E STAMPA_A_VIDEO c + 1 E STAMPA_A_VIDEO " VAI_A_CAPO"
+        t Elemento righe in posizione (r*COLONNA+C) di tabella = g
+        f = controllaF(tabella, g, r, c, 1) ? g : f
+        SE (nt == RIGA,COLONNA E f == 0)
+            ALLORA
+                f = FPareggio
+                ESCI CICLO
+    FINCHE (!f)
+    stampaTitolo
+    stampa(tabella)
+    SE (f == 1)
+        ALLORA STAMPA_A_VIDEO "Ha vinto " , NUMERO1 , CARATTEREG1
+    ALTRIMENTI 
+    SE (f == 2)
+        ALLORA STAMPA_A_VIDEO "Ha vinto " , NUMERO2, CARATTEREG2
+    ALTRIMENTI SE (f == 3)
+        ALLORA STAMPA_A_VIDEO "Pareggio"
+FINE
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE mossaPC
+DATI DI INPUT=
+    tabella, Struttura dati di Gioco di dimensione RIGA, COLONNA
+    gp, intero>0
+    ga, intero>0 
+DATI DI OUTPUT=
+    cas, intero >0
+VARIABILI DI LAVORO=
+    r, intero >0
+    c, intero >0
+    cas, intero >0
+    g, intero >0
+    i, intero >0
+    tabella2, Struttura dati  di tipo  Gioco ausiliaria, di dimensione RIGA,COLONNA
+INIZIO
+    r = 0
+    MENTRE (r < RIGA)
+        c = 0
+        MENTRE (c < COLONNA)
+            Elemento di tabella2 in posizione( r*COLONNA+C) = Elemento di tabella in posizione (r*COLONNA+C)
+            c = c + 1
+        FINE MENTRE
+        r = r + 1
+    FINE MENTRE
+    STAMPA_A_VIDEO "mossaPC ( m, " E STAMPA_A_VIDEO gp E STAMPA_A_VIDEO ", " E STAMPA_A_VIDEO ga E STAMPA_A_VIDEO " )"
+    i = 0
+    MENTRE(i < 2)
+        c = 0
+        MENTRE( c < COLONNA)
+            r = inserisci(tabella2, c)
+           elemento Righe in posizione( r*COLONNA+C) di tabella2 = g
+            STAMPA_A_VIDEO "VAI_A_CAPO  c=" E STAMPA_A_VIDEO c E STAMPA_A_VIDEO "  r=" E STAMPA_A_VIDEO r E STAMPA_A_VIDEO " controllaF( m, " E STAMPA_A_VIDEO g E STAMPA_A_VIDEO ", " E STAMPA_A_VIDEO r E STAMPA_A_VIDEO ", " E STAMPA_A_VIDEO c E STAMPA_A_VIDEO ", 0)=" E STAMPA_A_VIDEO controllaF(tabella2, g, r, c, 0)
+            SE (r != -1 E controllaF(tabella2, g, r, c, 0))
+                ALLORA RESTITUISCI c
+            Elemento Righe in posizione( r*COLONNA+C) di tabella2 = vuoto
+            c = c + 1
+        FINE MENTRE
+        i = i + 1
+    FINE MENTRE
+    MENTRE (1) // Controlla se nella colonna casuale c'è spazio
+        SE (inserisci(tabella2, cas = GENERA NUMERO CASUALE % COLONNA) != -1)
+            ALLORA RESTITUISCI cas
+FINE
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE giocatoreP
+DATI DI INPUT=
+    g, intero >0,  giocatore 1 o 2
+DATI DI OUTPUT=
+    g, intero >0,  giocatore 1 o 2
+
+INIZIO
+    RESTITUISCI g == g1I ? g2I : g1I 
+    //serve per scegliere o il giocatore 1 o giocatore 2
+FINE
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE esiste
+DATI DI INPUT=
+    r, intero >0 , contaciclo
+    c, intero >0 ,contaciclo
+DATI DI OUTPUT=
+    Intero, booleano, restituisce 0 o 1 
+INIZIO
+    SE (r >= 0 E r < RIGA E c >= 0 E c < COLONNA)
+        ALLORA intero=1
+    ALTRIMENTI intero=0
+FINE
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE azzera
+DATI DI INPUT=
+    tabella, struttura di Gioco di dimensione RIGA,COLONNA
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    i, intero >0 ,contaciclo
+INIZIO
+    i = 0
+    MENTRE (i < RIGA,COLONNA)
+        Elemento Righe in posizione i di tabella= 0
+        Elemento  Colonne in posizione i di tabella= 0
+        i = i + 1
+FINE
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE inserisci
+DATI DI INPUT=
+    tabella, array di tipo Gioco di dimensione RIGA,COLONNA
+    c, intero >0, contaciclo
+DATI DI OUTPUT=
+    Intero , booleano restituisce 0 o 1
+    valore , booelano, restituisce -1
+VARIABILI DI LAVORO=
+    i, intero >0 , contaciclo
+INIZIO
+    i = RIGA - 1
+    MENTRE( i >= 0)
+        SE  (elemento Righe in posizione( r*COLONNA+C) di tabella2 =(vuoto))
+            ALLORA RESTITUISCI i
+        i = i - 1
+    FINE MENTRE
+    valore=-1
+FINE
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE controllaF
+DATI DI INPUT=
+    tabella, array di Gioco di dimensione RIGA,COLONNA
+    g, intero >0 , giocatore 1 o 2
+    r, intero >0 , indica le righe
+    c, intero >0, indica le colonne 
+    e, intero >0, 
+DATI DI OUTPUT=
+    intero
+VARIABILI DI LAVORO=
+    x, intero >0 , variabile di supporto
+    ret, intero >0 , variabile di supporto
+    i, intero >0 , variabile di supporto
+    ok, intero >0 ,variabile di supporto
+INIZIO
+    // Controllo diagonale \\
+    SE ((r - 1, c - 1) E elemento Righe in posizione( (r-1)*COLONNA+(c-1)) di tabella == g)
+        SE (x = controllaF(tabella, g, r - 1, c - 1, e) != 0)
+            ALLORA ret = ret + x
+    SE (r < RIGA - (NGV - 1) E c < COLONNA - (NGV - 1))
+        ALLORA
+            ok = 1
+            i = 0
+            MENTRE (i < NGV E (ok *= (elemento Righe in posizione( r*COLONNA+c) di tabella == elemento Righe in posizione( (r+i)*COLONNA+c+i) di tabella O elemento Righe in posizione( (r+i)*COLONNA+c+i) di tabella == vI))
+                i = i + 1
+            SE (ok)
+                ALLORA
+                    SE (e)
+                        ALLORA
+                            i = 0
+                            MENTRE (esiste(r + i, c + i) E elemento Righe in posizione( (r+i)*COLONNA+(c+i)) di tabella == g)
+                                elemento Righe in posizione( (r+i)*COLONNA+(c+i)) di tabella = vI
+                                i = i + 1
+                    ret = 1
+    // Controllo diagonale \\
+    SE (esiste(r + 1, c - 1) E elemento Righe in posizione( (r+1)*COLONNA+(c-1)) di tabella == g)
+        SE (x = controllaF(tabella, g, r + 1, c - 1, e) != 0)
+            ALLORA ret = ret +  x
+    SE (r > (NGV - 2) E c < COLONNA - (NGV - 2))
+        ALLORA
+            ok = 1
+            i = 0
+            MENTRE (i < NGV) E (ok = elemento Righe in posizione( r*COLONNA+c) di tabella == elemento Righe in posizione(( r-i)*COLONNA+c+i) di tabella O elemento Righe in posizione(( r-i)*COLONNA+c+i) di tabella == vI))
+                i = i + 1
+            SE (ok)
+                ALLORA
+                    SE (e)
+                        ALLORA
+                            i = 0
+                            MENTRE ((esiste(r - i, c + i)) E (elemento Righe in posizione(( r-i)*COLONNA+c+i) di tabella == g
+                                elemento Righe in posizione(( r-i)*COLONNA+c+i) di tabella = vI))
+                                i = i + 1
+                    ret = 1
+    // Controllo riga
+    SE (esiste(r, c - 1)) E (elemento Righe in posizione( r*COLONNA+c-1) di tabella  == g))
+        SE (x = controllaF(tabella, g, r, c - 1, e) != 0)
+            ALLORA ret = ret - x
+    SE (c < COLONNA - (NGV - 1))
+        ALLORA
+            ok = 1
+            i = 0
+            MENTRE (i < NGV E (ok *= elemento Righe in posizione( r*COLONNA+c) di tabella == elemento Righe in posizione( r*COLONNA+c+i) di tabella O elemento Righe in posizione( r*COLONNA+c+i) di tabella == vI))
+                i = i + 1
+            SE (ok)
+                ALLORA
+                    SE (e)
+                        ALLORA
+                            i = 0
+                            MENTRE (esiste(r, c + i) E elemento Righe in posizione( r*COLONNA+c+i) di tabella == g)
+                                elemento Righe in posizione( r*COLONNA+c+i) di tabella= vI
+                                i = i + 1
+                    ret = 1
+    // Controllo colonna
+    SE (r < RIGA - (NGV - 1))
+        ALLORA
+            ok = 1
+            i = 0
+            MENTRE i < NGV E (ok *= (elemento Righe in posizione( r*COLONNA+c) di tabella == elemento Righe in posizione( (r+i)*COLONNA+c) di tabella O elemento Righe in posizione( (r+i)*COLONNA+c) di tabella == vI))
+                i = i + 1
+            SE ok
+                ALLORA
+                    SE (e)
+                        ALLORA
+                            i = 0
+                            MENTRE (i < NGV) // Non serve controllare se sono più di 4
+                                elemento Righe in posizione( (r+i)*COLONNA+c+i) di tabella = vI
+                                i = i + 1
+                    ret = 1
+    RESTITUISCI ret
+FINE
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE Struttura_gioco
+DATI DI INPUT=
+    tipoGioco, intero>0
+    scelta, carattere >0
+    tg1, puntatore a intero, turno giocatore 1
+    tg2, puntatore a intero, turno gicatore 2 
+    tabella, struttura dati di tipo Gioco di dimensione RIGHE,COLONNE
+    NUMERO1, puntatore a carattere
+    NUMERO2, puntatore a carattere
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    flag, intero >0, serve per controllare se si vuole caricare una partita o no
+INIZIO
+    SE tipoGioco == UvsU
+        ALLORA
+            *tg1 = *tg2 = User
+    ALTRIMENTI SE tipoGioco == UvsC
+        ALLORA
+            *tg1 = User
+            *tg2 = CPU
+    ALTRIMENTI
+        *tg1 = *tg2 = CPU
+    // ciclo do per chiedere all'utente di caricare la partita o no
+    flag = 0
+    RIPETI
+        STAMPA_A_VIDEO "Vuoi caricare una partita precedentemente salvata? (s/n): "
+  Scelta= LEGGERE_DA_TASTIERA
+        // Pulisce il buffer di input
+        MENTRE ((LEGGERE_DA_TASTIERA) != 'VAI_A_CAPO')
+    // Controlla se l'input dell'utente è valido
+    SE scelta != 's' E scelta != 'n' E scelta != 'S' E scelta != 'N'
+        ALLORA STAMPA_A_VIDEO "Input non valido. Per favore, inserisci 'si' o 'no'. VAI_A_CAPO"
+    FINCHE  ((scelta == 's') O (scelta == 'n') O (scelta == 'S') O( scelta == 'N'))
+    SE (scelta == 's' O scelta == 'S')
+        ALLORA
+            partitaCaricata = caricaPartita(tabella)
+            SE ( partitaCaricata)
+                ALLORA
+                    //ciclo per caricamento barra
+	     P=0
+                    MENTRE p<=100
+                        ESEGUI mostrare_caricamento_barra(p)
+                        // Aggiungi una pausa per l'animazione
+                    FINE MENTRE
+                    STAMPA_A_VIDEO "VAI_A_CAPO" // Vai a capo alla fine dell'animazione
+                    STAMPA_A_VIDEO "Partita precedentemente salvata caricata con successo! "
+                    flag = 1
+            ALTRIMENTI
+                STAMPA_A_VIDEO "Nessuna partita salvata trovata. "
+                STAMPA_A_VIDEO "Premi qualsiasi tasto per iniziare a giocare..."
+                  LEGGERE_DA_TASTIERA
+                MENTRE ((LEGGERE_DA_TASTIERA) != 'VAI_A_CAPO')
+    SE (flag == 1)
+        ALLORA giocare_con_Salvataggio(NUMERO1, NUMERO2, *tg1, *tg2, tabella)
+    ALTRIMENTI giocare_senza_salvataggio(NUMERO1, NUMERO2, *tg1, *tg2)
+FINE

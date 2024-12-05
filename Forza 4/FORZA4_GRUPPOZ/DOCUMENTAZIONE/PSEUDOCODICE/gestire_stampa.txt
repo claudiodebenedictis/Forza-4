@@ -1,0 +1,90 @@
+FUNZIONE stampaTitolo
+DATI DI INPUT=
+    Titolo.txt, FILE DI TESTO, contiene il titolo
+DATI DI OUTPUT=
+    Esito, booleano, 1 se il file e' stato caricato, 0 altrimenti 
+DATI DI LAVORO=
+    fp, puntatore a file
+    i, intero >0, contatore
+INIZIO
+      file = APRIRE FILE "titolo.txt" IN MODALITA' LETTURA
+    SE (file == NULL)
+        ALLORA STAMPA_A_VIDEO "Non riesco a trovare il file 'regole.txt'. Assicurati che il file esista."
+    Esito=1
+ALTRIMENTI Esito=0
+    FINE SE
+    MENTRE ((c = LEGGI CARATTERE DA file)!= FINE FILE)
+        STAMPA_A_VIDEO c
+    FINE MENTRE
+
+    STAMPA_A_VIDEO “VAI A CAPO”
+    STAMPA_A_VIDEO “VAI A CAPO”
+FINE
+
+////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE stampaRigaPiena
+DATI DI INPUT=
+    Nessuno
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    j, intero >0, contatore
+INIZIO
+    j = 1
+    STAMPA_A_VIDEO     "   |"
+    MENTRE (j <= COLONNA)
+        STAMPA_A_VIDEO    "---|"
+        j = j + 1
+    STAMPA_A_VIDEO   "VAI_A_CAPO"
+FINE
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE stampa
+DATI DI INPUT=
+    tabella, struttura  Gioco di dimensione RIGA * COLONNA
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    i, intero>0, contaciclo
+    j, intero>0, contatore
+INIZIO
+    i = 0
+    STAMPA_A_VIDEO "VAI_A_CAPO"
+    stampaRigaPiena
+    MENTRE (i < RIGA)
+    STAMPA_A_VIDEO "   |"
+ j = 0
+ MENTRE ( j < COLONNA)
+            	STAMPA_A_VIDEO " " 
+STAMPA_A_VIDEO stampaCasella(Elemento di righe in posizione (i*COLONNA+J) di tabella         STAMPA_A_VIDEO " |"
+           		 j = j + 1
+      			  STAMPA_A_VIDEO "VAI_A_CAPO"
+        			stampaRigaPiena
+      		  i = i + 1
+    stampaRigaPiena
+     	STAMPA_A_VIDEO "   |"
+    j = 1
+    MENTRE (j <= COLONNA)
+        STAMPA_A_VIDEO " " E STAMPA_A_VIDEO j E STAMPA_A_VIDEO " |"
+        j = j + 1
+    STAMPA_A_VIDEO "VAI_A_CAPO"
+    StampaRigaPiena()
+    STAMPA_A_VIDEO "VAI_A_CAPO"
+FINE
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE stampaCasella
+DATI DI INPUT=
+    x, intero>0 , scelta del carattere
+DATI DI OUTPUT=
+    c, array di caratteri, contiene il carattere dei giocatori
+INIZIO
+    SE (x == 0)
+        ALLORA c = vuoto
+    ALTRIMENTI SE (x == 1)
+        ALLORA c = CARATTEREG1
+    ALTRIMENTI SE (x == 2)
+        ALLORA c = CARATTEREG2
+    ALTRIMENTI SE (x == 3)
+        ALLORA c = CVitt
+    RESTITUISCI c
+FINE SE 
+FINE

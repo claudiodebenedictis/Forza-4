@@ -1,0 +1,58 @@
+Funzioni di accesso alla struttura Gioco
+#Funzione Leggere_Tabella
+INPUT
+Tabella, contiene le informazioni relative al tavolo da gioco , Gioco;
+OUTPUT
+tavolo_Gioco, Valore del campo Tabella di Gioco, Tabella;
+INIZIO
+tavolo_Gioco= Valore del campo Tabella di Gioco
+FINE
+
+#Funzione Scrivere_Tabella
+INPUT
+Tabella, contiene le informazioni relative al tavolo da gioco , Gioco;
+tavolo_Gioco, Valore del campo Tabella di Gioco, Tabella;
+OUTPUT
+Tabella, contiene le informazioni relative al tavolo da gioco , Gioco;
+INIZIO
+Valore del campo Tabella di Gioco=tavolo_Gioco
+FINE
+
+#Funzione Leggere_Righe
+INPUT
+Tabella, contiene le informazioni relative al tavolo da gioco , Gioco;
+OUTPUT
+righe, Valore del campo righe di Gioco, INTERO;
+INIZIO
+righe= Valore del Campo righe di Gioco
+FINE
+
+#Funzione Scrivere_Righe
+INPUT
+Tabella, contiene le informazioni relative al tavolo da gioco , Gioco;
+righe, Valore del campo righe di Gioco, INTERO;
+OUTPUT
+Tabella, contiene le informazioni relative al tavolo da gioco , Gioco;
+INIZIO
+Valore del Campo righe di Gioco=righe
+FINE
+
+#Funzione Leggere_Colonne
+INPUT
+Tabella, contiene le informazioni relative al tavolo da gioco , Gioco;
+OUTPUT
+colonna= Valore del campo colonna di Gioco, Gioco;
+INIZIO
+colonna= Valore del campo colonna di Gioco
+FINE
+
+#Funzione Scrivere_Colonne
+INPUT
+Tabella, contiene le informazioni relative al tavolo da gioco , Gioco;
+colonna=Valore del campo Colonna di Gioco, Giocatore;
+OUTPUT
+Tabella, contiene le informazioni relative al tavolo da gioco , Gioco;
+INIZIO
+Valore del campo colonne di Gioco=colonna
+FINE
+

@@ -1,0 +1,209 @@
+IMPOSTAZIONI DELLE FUNZIONI PRINCIPALI DEL GIOCO FORZA 4 
+
+COSTANTI GLOBALI=
+//dimensioni del campo da gioco
+RIGA, intero = 9, Numero di righe
+COLONNA, intero = 8, Numero di colonne
+
+//caratteri stampati a video
+CARATTEREG1, carattere = 'X', Carattere del giocatore 1
+CARATTEREG2, carattere = 'O', Carattere del giocatore 2
+vuoto, carattere = '.', Carattere per uno spazio vuoto
+CVitt, carattere = 'V', Carattere per segnare la combinazione vincente
+
+//valore  nella matrice
+vuotoI, intero = 0, Valore di uno spazio vuoto
+g1I, intero = 1, Valore del giocatore 1
+g2I, intero = 2, Valore del giocatore 2
+vI, intero = 3, Valore per segnare la combinazione vincente
+
+//valori che puo assumere f in gioca
+FGioca, intero = 0, Partita in corso
+FG1, intero = 1, Ha vinto il giocatore 1
+FG2, intero = 2, Ha vinto il giocatore 2
+FPareggio, intero = 3, Pareggio
+
+//varie
+CN, intero = 15, Numero dei caratteri dei nomi dei giocatori
+NGV, intero = 4, Numero Gettoni per la Vittoria
+PROGRESSO_BARRA, intero = 40, Caricamento barra
+
+//tipologia di gioco
+UvsU, intero = 1, User contro User
+UvsC, intero = 2, User contro Computer
+CvsC, intero = 3, Computer contro Computer
+scelta_aiuto, intero = 4, Scelta aiuto
+
+//tipologia giocatore
+User, intero = 1, Tipologia Giocatore
+CPU, intero = 2, Tipologia Giocatore
+righe, Valore del campo righe di Gioco, INTERO;
+
+//////////////////////////////////////////////////
+FUNZIONE menuPrincipale
+DATI DI INPUT=
+    tabella, struttura di tipo Gioco di dimensione RIGA , COLONNA
+    NUMERO1, array di caratteri di dimensione CN
+    NUMERO2, array di caratteri di dimensione CN
+    tipoGioco,  intero >0, scelta del gioco da parte dell'utente
+    tg1, puntatore a intero, turno giocatore1 
+    tg2, puntatore a intero, turno giocatore2 
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    scelta, array di caratteri monodimensionale
+    p, intero >0 , contatore
+
+////////////////////////////////////////////////////////
+FUNZIONE giocare_partita
+DATI DI INPUT=
+    NUMERO1, array di caratteri di dimensione CN
+    NUMERO2, array di caratteri di dimensione CN
+    tg1, puntatore a intero, turno giocatore 1
+    tg2, puntatore a intero, turno giocatore 2 
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    tabella, struttura di Gioco di dimensione RIGA ,COLONNA
+    t, intero >0 ,turno
+    f, intero >0 , variabile di supporto
+    nt, intero >0, variabile di supporto
+    r, intero>0, variabile di supporto
+    c, intero >0 , variabile di supporto
+    g, intero >0 , sceglie il giocatore tra giocatore 1 o 2 
+    scelta, array di carattere, indica la scelta
+    tipoGioco, array di interi >0
+    risultato, intero >0, posizione del gettore nella tabella ( da 1 a 8)
+    p, intero >0 , variabile di supporto 
+//////////////////////////////////////////////////
+FUNZIONE mossaPC
+DATI DI INPUT=
+    tabella, Struttura dati di Gioco di dimensione RIGA, COLONNA
+    gp, intero>0
+    ga, intero>0 
+DATI DI OUTPUT=
+    cas, intero >0
+VARIABILI DI LAVORO=
+    r, intero >0
+    c, intero >0
+    cas, intero >0
+    g, intero >0
+    i, intero >0
+    tabella2, Struttura dati  di tipo  Gioco ausiliaria, di dimensione RIGA,COLONNA
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE giocatoreP
+DATI DI INPUT=
+    g, intero >0,  giocatore 1 o 2
+DATI DI OUTPUT=
+    g, intero >0,  giocatore 1 o 2
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE esiste
+DATI DI INPUT=
+    r, intero >0 , contaciclo
+    c, intero >0 ,contaciclo
+DATI DI OUTPUT=
+    Intero, booleano, restituisce 0 o 1 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE azzera_tabella_di_gioco
+DATI DI INPUT=
+    tabella, struttura di Gioco di dimensione RIGA,COLONNA
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    i, intero >0 ,contaciclo
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE inserisci_pedina
+DATI DI INPUT=
+    tabella, array di tipo Gioco di dimensione RIGA,COLONNA
+    c, intero >0, contaciclo
+DATI DI OUTPUT=
+    Intero , booleano restituisce 0 o 1
+    valore , booelano, restituisce -1
+VARIABILI DI LAVORO=
+    i, intero >0 , contaciclo
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE controllare_vincita
+DATI DI INPUT=
+    tabella, array di Gioco di dimensione RIGA,COLONNA
+    g, intero >0 , giocatore 1 o 2
+    r, intero >0 , indica le righe
+    c, intero >0, indica le colonne 
+    e, intero >0, 
+DATI DI OUTPUT=
+    intero
+VARIABILI DI LAVORO=
+    x, intero >0 , variabile di supporto
+    ret, intero >0 , variabile di supporto
+    i, intero >0 , variabile di supporto
+    ok, intero >0 ,variabile di supporto
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE Struttura_gioco
+DATI DI INPUT=
+    tipoGioco, intero>0
+    scelta, carattere >0
+    tg1, puntatore a intero, turno giocatore 1
+    tg2, puntatore a intero, turno gicatore 2 
+    tabella, struttura dati di tipo Gioco di dimensione RIGHE,COLONNE
+    NUMERO1, puntatore a carattere
+    NUMERO2, puntatore a carattere
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    flag, intero >0, serve per controllare se si vuole caricare una partita o no
+//////////////////////////////////////////////////////////////////////
+FUNZIONE stampa
+DATI DI INPUT=
+    tabella, struttura  Gioco di dimensione RIGA * COLONNA
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    i, intero>0, contaciclo
+    j, intero>0, contatore
+///////////////////////////////////////
+FUNZIONE stampaCasella
+DATI DI INPUT=
+    x, intero>0 , scelta del carattere
+DATI DI OUTPUT=
+    c, array di caratteri, contiene il carattere dei giocatori
+///////////////////////////
+FUNZIONE gestire_aiuto
+DATI DI INPUT=
+    Nessuno
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    scelta, array monodimensionale di caratteri
+    file, puntatore a file
+    c, array monodimensionale di caratteri
+///////////////////////////////////////
+FUNZIONE salvaPartita
+DATI DI INPUT=
+    tabella, struttura di tipo Gioco di dimensione RIGA , COLONNA
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    fp, puntatore a file
+    i, intero >0 ,contatore
+//////////////////////////////////
+FUNZIONE caricaPartita
+DATI DI INPUT=
+    tabella, struttura di tipo Gioco di dimensione RIGA , COLONNA
+   game.bin, File binario
+DATI DI OUTPUT=
+   Esito, booleano, 1 se il gioco e' stato caricato, 0 altrimenti
+VARIABILI DI LAVORO=
+    fp, puntatore a file
+    i, intero >0, contatore

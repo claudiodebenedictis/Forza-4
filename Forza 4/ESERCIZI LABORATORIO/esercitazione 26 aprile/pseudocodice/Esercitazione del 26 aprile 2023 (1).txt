@@ -1,0 +1,42 @@
+Esercitazione del 26 aprile 2023
+
+Un numero in una base b, con 1 < b < 10, puo’ essere scritto utilizzando i primi b-1 caratteri
+dell’insieme {’0’, ..., ’9’}.
+Ad esempio, un numero in base 4 puo’ essere espresso utilizzando i caratteri {’0’, ..., ’3’}.
+Si considerino stringhe comite da una sequenza di numeri in base b separati tra loro dal
+carattere ’-’. Come esempio, si consideri la seguente stringa "421-64-5-345", contenente i
+numeri 421, 64, 5 e 345.
+Realizzare una funzione che riceve come parametri di input un file di testo contenente una stringa
+nel formato suddetto ed un intero rappresentate la base e restituisce il numero massimo
+presente nella stringa. Nel caso un numero contenga un simbolo non ammesso dalla base, la
+funzione deve restituire -1.
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+Funzione trovaremassimo
+INPUT
+fileditesto, stringa di numeri separati dal trattino, array di caratteri
+base, base numerica della sequenza, intero >1 e <10
+OUTPUT
+massimo, numero massimo contenuto nel file di testo, intero >=-1
+
+Lavoro
+vettore, vettore su cui cercare il massimo, array di caratteri
+i, indice contatore di vettore, intero >0
+
+INIZIO
+// prendere il file di testo
+mentre(elemento in posizione i!='/0')
+se(elemento in posizione i di vettore>=0 OR elemento in posizione i di vettore<=base-1)
+allora
+massimo=0
+se(elemento in posizione i di vettore>massimo)
+allora 
+massimo=elemento in posizione i di vettore
+fine se
+altrimenti
+massimo=-1
+fine se
+i=i+1
+fine
+FINE
+
+

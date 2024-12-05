@@ -1,0 +1,24 @@
+TEST 1
+risultato aspettato= palindromo
+input=Ecco delle belle docce
+risultato ottenuto=palindromo
+
+TEST 2
+risultato aspettato= palindromo
+input=Ecco delle belle docce
+risultato ottenuto=palindromo
+
+TEST 3
+risultato aspettato= palindromo
+input= palindromo piu lungo del mondo
+risultato ottenuto= palindromo
+
+TEST 4
+risultato aspettato= palindromo
+input=Poter essere pelato totale per essere top
+risultato ottenuto= palindromo
+
+TEST 5
+risultato aspettato= palindromo
+input= O mordo tua nuora o aro un autodromo 
+risultato ottenuto =palindromo

@@ -1,0 +1,35 @@
+GRUPPO 9 
+///////////////////////////////////////////////////////////////////////////////////////////////
+FILE DI TESTO CONTENENTE TUTTI I MODULI
+Modulo visualizzazione: 
+Funzione Stampare_Menu_Iniziale
+Funzione Aprire_Menu_Nuova_Partita
+Funzione Aprire_Menu_Carica_Partita
+Funzione Stampare_serpentina(Lunghezza_percorso,nome_giocatore,num_giocatori,oca,caselle)
+Funzione Stampa_iniziale(Lunghezza_percorso,nome_giocatore,num_giocatori,oca,caselle)
+
+Modulo Giocatore: 
+Funzione Iniziare_Nuova_Partita
+Scegliere_primo_giocatore(nome_giocatore,num_giocatore,temp)
+
+Modulo percorso:
+Funzione Dichiarazione_caselle(Lunghezza_percorso)
+Funzione LancioDadi(Lunghezza_percorso,nome_giocatore,num_giocatori,temp,x)
+Funzione Spostamentonellecelle(Lunghezza_percorso,nome_giocatore,num_giocatori,x)
+Funzione ControlloVincita(Lunghezza_percorso,nome_giocatore,num_giocatori,oca,caselle,Vittoria,x)
+Funzione FinitoTurno(Lunghezza_percorso,nome_giocatore,num_giocatori,oca,caselle,x)
+
+Modulo gioco:
+Funzione Iniziare_Partita(Lunghezza_percorso,nome_giocatore,num_giocatori,temp) 
+
+Modulo classifica:
+Funzione Aprire_Classifica
+ 
+Modulo regole:
+Funzione Aprire_Aiuto
+
+Modulo salvataggio:
+Funzione Trovare_Partita_Caricata (partita_salvata)
+Funzione Caricare_Partita_Precedente (partita_salvata)
+Funzione Salvare_Partita (num_giocatori, lunghezza_percorso)
+

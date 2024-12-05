@@ -1,0 +1,626 @@
+GRUPPO 9
+/////////////////////////////////////////
+COSTANTI GLOBALI=
+x, intero >0, contiene il numero del giocatore che sta avanzando nel gioco
+disposizione_elementi, intero =8 ,	inizializziamo una variabile per indicare il numero massimo di elementi su una riga
+scelta, intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+
+FUNZIONE Stampare_Menu_Iniziale;
+DATI DI INPUT
+		num_giocatori, intero >=2 && <=4, serve per avere un numero di giocatori
+		lunghezza_percorso, intero >=50 && <=90, serve per avere la lunghezza del percorso
+		partita_salvata, intero >=0 && <=5, per contenere il numero di partite salvate.
+DATI DI OUTPUT
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+INIZIO
+	SCRIVI"Benvenuti nel gioco dell'oca, questo e' il menu principale"
+	SCRIVI"******* 1. NUOVA PARTITA  *******"
+	SCRIVI"******* 2. CARICA PARTITA *******"
+	SCRIVI"******* 3. AIUTO          *******"
+	SCRIVI"******* 4. CLASSIFICA     *******"
+	SCRIVI"******* 0. FINE 		 *******"
+
+	ESEGUI
+		scelta=LEGGIDATASTIERA()
+	FINCHE((scelta>=0 ) && (scelta <=4))
+	SE(scelta=="1")
+		ALLORA  Aprire_Menu_Nuova_Partita
+	ALTRIMENTI
+		SE(scelta=="2")
+			ALLORA Aprire_Menu_Carica_Partita
+		ALTRIMENTI
+			SE(scelta=="3")
+				ALLORA Aprire_Aiuto
+			ALTRIMENTI
+				SE(scelta=="4")
+					ALLORA Aprire_Classifica
+				ALTRIMENTI 
+					SE (scelta=="0")
+						ALLORA //chiudi il gioco
+					FINE SE
+				FINE SE
+			FINE SE
+		FINE SE
+	FINE SE
+FINE
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//SCELTA DALL'UTENTE 1 NEL MENU INIZIALE
+FUNZIONE Aprire_Menu_Nuova_Partita;
+DATI DI INPUT
+		num_giocatori, intero >=2 && <=4, serve per avere un numero di giocatori
+		lunghezza_percorso, intero >=50 && <=90, serve per avere la lunghezza del percorso
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+DATI DI OUTPUT
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+INIZIO
+	SCRIVI"******* 1.1 NUOVA PARTITA        *******"
+	SCRIVI"******* 1.2 SALVA PARTITA        *******"
+	SCRIVI"******* 1.3 ABBANDONA PARTITA    *******"
+	SCRIVI"******* 1.0 TORNA MENU INIZIALE  *******"
+	
+	ESEGUI
+		scelta=LEGGIDATASTIERA()
+	FINCHE ((scelta>=0 ) && (scelta<=3))
+	SE(scelta=="1")
+		ALLORA Iniziare_Nuova_Partita (num_giocatori, lunghezza_percorso)
+	ALTRIMENTI
+		SE(scelta=="2")
+			ALLORA Salvare_Partita (num_giocatori, lunghezza_percorso)
+		ALTRIMENTI
+			SE(scelta=="3")
+				ALLORA //torna a Aprire_Menu_Nuova_partita
+			ALTRIMENTI
+				SE(scelta=="0")
+					ALLORA //torna al menu_iniziale
+				FINE SE
+			FINE SE
+		FINE SE
+	FINE SE			
+FINE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//SCELTA DALL'UTENTE 2 NEL MENU INIZIALE
+FUNZIONE Aprire_Menu_CaricaPartita;
+DATI DI INPUT
+		num_giocatori, intero >=2 && <=4, serve per avere un numero di giocatori
+		lunghezza_percorso, intero >=50 && <=90, serve per avere la lunghezza del percorso
+		partita_salvata, intero >=0 && <=5, per contenere il numero di partite salvate.
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+DATI DI OUTPUT
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+INIZIO
+
+	SCRIVI"******* 2.1  CARICA PARTITA            *******"
+	SCRIVI"******* 2.0  TORNA MENU INIZIALE       *******"
+	ESEGUI
+		scelta=LEGGIDATASTIERA()
+	FINCHE ((scelta>=0) && (scelta<=1))
+	SE (scelta=="1")
+		ALLORA		Trovare_Partita_Caricata (partita_salvata)		//trova il numero di partite presenti in memoria	
+				Caricare_Partita_Precedente (partita_salvata)  		//carica la partita scelta dall'utente		
+	ALTRIMENTI
+		SE (scelta=="0")
+			ALLORA //torna al menu iniziale
+		FINE SE
+	FINE SE
+	
+FINE
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//SCELTA DALL'UTENTE 3 NEL MENU INIZIALE
+FUNZIONE Aprire_aiuto;
+DATI DI INPUT
+		regole.txt , fileditesto, in cui saranno inserite le regole di gioco (regole generiche) 
+		manuale.txt , fileditesto,in cui sara' inserito il manuale di gioco (regole adottate nel computer) 
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+DATI DI OUTPUT
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+	
+	SCRIVI"******* 3.1  APRI REGOLE DI GIOCO GENERICHE *******"
+	SCRIVI"******* 3.2  APRI MANUALE DI GIOCO          *******"
+	SCRIVI"******* 3.0  TORNA MENU INIZIALE            *******"
+	
+	ESEGUI
+		scelta=LEGGEREDATASTIERA()
+	FINCHE ((scelta>=0) && (scelta<=2))
+	SE(scelta=="1")
+		ALLORA  LEGGEREFILEDITESTO(regole.txt) //file di testo in cui saranno inserite le regole di gioco (regole generiche) 
+	ALTRIMENTI
+		SE(scelta=="2")
+			ALLORA LEGGEREFILEDITESTO(manuale.txt) //file di testo in cui sara' inserito il manuale di gioco (regole adottate nel computer)
+		ALTRIMENTI
+			SE(scelta=="0")
+				ALLORA //torna al menu iniziale
+			FINE SE
+		FINE SE
+	FINE SE	
+	//torna al menu Aprire_aiuto
+FINE
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//SCELTA DALL'UTENTE 4 NEL MENU INIZIALE
+FUNZIONE Aprire_classifica;
+DATI DI INPUT=
+		num_giocatori, intero >=2 && <=4, serve per avere un numero di giocatori
+		lunghezza_percorso, intero >=50 && <=90, serve per avere la lunghezza del percorso
+		partita_salvata, intero >=0 && <=5, per contenere il numero di partite salvate.
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+DATI DI OUTPUT=
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+INIZIO
+	SCRIVI"******* 4.1  GUARDA CLASSIFICA              *******"
+	SCRIVI"******* 4.0  TORNA MENU INIZIALE            *******"
+	ESEGUI
+		scelta=LEGGEREDATASTIERA()
+	FINCHE ((scelta>=0) && (scelta<=1))
+	SE (scelta=="1")
+		ALLORA	Visualizzare_Giocatori 		//funzione in base al numero di lanci di dadi fatti nei giochi (salvati regolarmente nella funzione principale del gioco
+			Trovare_Classificati 		//permette di ordinare tutti i giocatori in base al numero più alto di dadi lanciati
+	ALTRIMENTI
+		SE (scelta=="0")
+			ALLORA //torna al menu iniziale
+		
+	FINE SE
+	
+	//torna al Aprire_classifica
+FINE
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//SCELTA DALL'UTENTE 1.1
+FUNZIONE Iniziare_Nuova_Partita;
+DATI DI INPUT:
+		lunghezza_percorso, intero >=50 && <=90, serve per avere la lunghezza del percorso
+		Num_giocatori, intero >=2 && <=4, serve per avere un numero di giocatori
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+		temp, intero >0, è una variabile che contiene colui che inizia per primo il gioco
+		Oca,  array monodimensionale di caratteri, contiene i nomi dei giocatori nelle caselle
+		caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+DATI DI OUTPUT:
+		Num_giocatori, intero >=2 && <=4, serve per avere un numero di giocatori
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+DATI DI LAVORO:
+		i, intero >0, contaciclo 
+		
+INIZIO:
+	ESEGUI
+	SCRIVI"Quanti giocatori devono partecipare? (da 2 a 4)") 
+	Num_giocatori=//LEGGEREDATASTIERA
+	FINCHE (Num_giocatori>=2 and <=4)
+	//ora diamo i nomi ai giocatori
+	i=1
+	MENTRE(i<=Num_giocatori)
+		SCRIVI"dammi il i-esimo nome del giocatore"
+		elemento di nome_giocatore in posizione i== //LEGGIDATASTIERA	
+		i=i+1
+	FINE MENTRE
+	ESEGUI  SCRIVI" Ottimo, ora scegli la lunghezza del tuo tracciato (minimo 50 massimo 90)"
+		Lunghezza_percorso=//LEGGIDATASTIERA
+	FINCHE (Lunghezza_percorso>=50 and <=90)
+	//inizio gioco vero e proprio
+	Iniziare_Partita(Lunghezza_percorso,nome_giocatore,num_giocatori,temp)   //la funziona principale del gioco"
+FINE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE  Iniziare_Partita;  //funzione principale del gioco
+
+DATI DI INPUT:
+		lunghezza_percorso, intero >=50 && <=90, serve per avere la lunghezza del percorso
+		Num_giocatori, intero >=2 && <=4, serve per avere un numero di giocatori
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+		temp, intero >0, è una variabile che contiene colui che inizia per primo il gioco
+		Oca,  array monodimensionale di caratteri, contiene i nomi dei giocatori nelle caselle
+		caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+		maledizione, intero >0, serve per indicare per quanti turni deve essere fermo
+		caduti, intero >0, serve per controllare se sono presenti 1 o più giocatori nella casella 
+DATI DI OUTPUT:
+		Lunghezza_percorso, intero >=50 && <=90, serve per avere la lunghezza del percorso
+		Num_giocatori, intero >=2 && <=4, serve per avere un numero di giocatori
+		turno, intero >0, indica il turno del gioco presente
+		numero_lanci, intero >0, contiene il numero di lanci effettuato da ogni giocatore (serve per la classifica)
+		posizione, intero >0 , salva la posizione di un giocatore
+		bloccato, variabile booleana, ci permette di controllare se è fermo o no
+		Vittoria, booleano ,serve per controllare se un giocatore ha raggiunto il traguardo o no
+DATI DI LAVORO:
+		riporto, array di caratteri, salva il nome del giocatore bloccato così da potergli ridare il suo nome, il quale era stato cambiato con "maledetto"
+
+//la funzione Iniziare_Partita avrà prima di tutto la dichiarazione di tutte le caselle tramite una funzione
+INIZIO
+	x=1 				//costante globale la quale indica il giocatore n*1 
+	Dichiarazione_caselle(Lunghezza_percorso)
+	Scegliere_primo_giocatore(nome_giocatore,num_giocatore,temp)
+	//inizia il gioco vero e proprio
+	Stampa_iniziale(Lunghezza_percorso,nome_giocatore,num_giocatori,oca,caselle)
+	//servirà un esegui finchè, che permette di continuare il gioco fino a quando un giocatore non vince
+	ESEGUI
+		SE(elemento di nome_giocatore in posizione x = "maledetto") //controlliamo se un giocatore è in una casella particolare e deve rimanere fermo in una casella pozzo e prigione
+		ALLORA       
+			SE (Maledizione=0) 	
+				ALLORA elemento di nome_giocatore in posizione x= riporto
+			FINE SE
+		FINE SE
+		maledizione=maledizione-1
+		x=x+1 //passa al giocatore successivo	
+		SE(caduti=2)
+		ALLORA 		elemento di nome_giocatore in posizione x= riporto
+		 	     	maledizione=0
+	
+		FINE SE	
+		LancioDadi(Lunghezza_percorso,nome_giocatore,num_giocatori,temp,x);        //primo giocatore è temp= 1giocatore, 2giocatore ecc ecc
+		Spostamentonellecelle(Lunghezza_percorso,nome_giocatore,num_giocatori,x)  //SErve per spostare la pedina nella casella prescelta, SEnza controllare la casella
+		ControlloVincita(Lunghezza_percorso,nome_giocatore,num_giocatori,oca,caselle,Vittoria,x)  //controlliamo se il giocatore è arrivato all'ultima casella con un lancio di dadi esatto. Nel caso non sia così, deve tornare indietro per la sua differenza
+		FinitoTurno(Lunghezza_percorso,nome_giocatore,num_giocatori,oca,caselle,x)  //finisce il turno, da qui sarà possibile abbandonare la partita,quindi tornare alla Funzione Aprire_menunuovapartita, o continuare.
+		Stampare_serpentina(Lunghezza_percorso,nome_giocatore,num_giocatori,oca,caselle) //stampa la spirale aggiornata
+		x=x+1
+	FINCHE' (x<=num_giocatori) 
+FINE 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FUNZIONE Dichiarazione_caselle
+DATI DI INPUT:
+	lunghezza_percorso, intero  >=50 && <=90, contiene la distanza del percorso sceltA dall'utente 
+DATI DI OUTPUT:
+	Oca, array monodimensionale di caratteri, contiene le nuove caselle del gioco aggiornato
+	caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+DATI DI LAVORO:
+	casella_ponte, intero >0, contiene la posizione della  casella ponte
+	casella_locanda, intero >0, contiene la posizione della  casella locanda
+	casella_pozzo,intero >0 , contiene la posizione della casella pozzo
+	casella_labirinto,intero >0 ,contiene la posizione della  casella labirinto
+	casella_scheletro,intero >0,contiene la posizione della casella scheletro
+	i, intero >0, contaciclo
+
+INIZIO
+	//iniziamo a dichiarare le caselle speciali, le caselle multiple di 9 le quali faranno raddoppiare il lancio dei dadi da parte del singolo giocatore.
+	i=9
+	MENTRE(i<=lunghezza_percorso)
+		elemento di oca in posizione i=="casella speciale" //noi utilizzeremo l'if "SE elemento di oca in posizione i =="casella speciale", raddoppia le caselle da andare avanti
+	i=i+9
+	FINE MENTRE
+	//caselle particolari. Noi sappiamo che le caselle particolari tipo "ponte o locanda" sono celle predefinite nel gioco classico da 90 caselle, adesso con una proporzione, 
+	// riusciremo a collocarle in tutti i giochi con un numero di caselle variabili
+	//iniziamo casella per casella
+		casella_ponte=(6*lunghezza_percorso)/90 	//6:90=x:lunghezza_percorso   x=6*lunghezza_percorso/90
+		elemento di oca in posizione casella_ponte == "casella_ponte"
+		casella_locanda=(19*lunghezza_percorso)/90	//19:90=x:lunghezza_percorso   x=19*lunghezza_percorso/90	
+		elemento di oca in posizione casella_locanda= "casella_locanda"
+		casella_pozzo=(31*lunghezza_percorso)/90	//31:90=x:lunghezza_percorso  x=31*lunghezza_percorso/90
+		elemento di oca in posizione casella_pozzo =="casella_pozzo"
+		casella_labirinto=(42*lunghezza_percorso)/90  //42:90=x:lunghezza_percorso  x=42*lunghezza_percorso/90
+		elemento di oca in posizione casella_labirinto="casella_labirinto"
+		casella_scheletro=(58*lunghezza_percorso)/90  //58:90=x:lunghezza_percorso  x=58*lunghezza_percorso/90
+		elemento di oca in posizione casella_scheletro="casella_scheletro"
+		//fine dichiarazione di caselle particolari
+FINE
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      	
+FUNZIONE Stampa_iniziale;
+DATI DI INPUT:
+		Oca, array monodimensionale di caratteri, contiene le caselle del gioco
+		caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+		lunghezza_percorso, intero  >50 and <90, contiene la distanza del percorso sceltA dall'utente
+		disposizione_elementi, costante
+DATI DI OUTPUT:
+ 		//stampa solo  la serpentina, non ha output
+DATI DI LAVORO:
+		i, intero >0, conta il ciclo while totale, partendo dalla posizione 1.
+		n, intero >0, conta il ciclo al contrario per la serpentina
+		j, intero >0, conta il ciclo dritto per la serpentina
+INIZIO: 
+	//stampa prima riga
+	i=1
+	MENTRE (i<=disposizione_elementi)
+		StampaAVideo (elemento di caselle in posizione i) 	
+		i=i+1
+	FINE MENTRE 
+	i=1
+	//stampa righe successive
+	StampaAVideo ("Vai_a_capo")
+	MENTRE (i<=n)
+		//stampa righe in senso inverso
+		esito=Trovare_pari(i,esito)
+		SE (esito="vero")
+		ALLORA
+			j=n-1
+			MENTRE (j>=0)
+				StampaAVideo (elemento di caselle in posizione i*disposizione_elementi+j) 
+				j=j-1
+			FINE MENTRE
+		//stampa le righe in senso normale
+		ALTRIMENTI
+    			 // stampa le colonne in senso normale
+			j=1
+			MENTRE (j<=n)
+				StampaAVideo (elemento di caselle in posizione i*disposizione_elementi+j) 
+				j=j+1
+			FINE MENTRE
+		FINE SE
+	FINE MENTRE	
+FINE
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE Sceglierere_primo_giocatore;
+DATI DI INPUT:
+		Num_giocatori, intero >=2 && <=4, serve per avere un numero di giocatori
+		nome_giocatore, array monodimensionale di caratteri, contenente i nomi dei giocatori
+DATI DI OUTPUT:
+		temp, intero >0, contiene la posizione del giocatore che inzierà a giocare
+DATI DI LAVORO:
+
+INIZIO
+	Temp=//scegliere random un valore >=2 && <=4
+	SCRIVI "il giocatore che inizia è il giocatore numero ",temp
+	//metto al primo posto il giocatore fortunato che inizia per primo
+	elemento di nome_giocatore in posizione temp=  elemento di nome_giocatore in posizione 1
+FINE
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE LancioDadi;
+DATI DI INPUT:
+		Oca,array monodimensionale di caratteri, contiene le caselle del gioco
+		caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+		num_giocatore, intero, >0, >=2 && <=4 , numero dei giocatori 
+		lunghezza_percorso, intero  >=50 && <=90, contiene la distanza del percorso sceltA dall'utente 
+DATI DI OUTPUT:
+		Risultato, array monodimensionale di interi, con variabili solo  >=2 && <=12, variabile contenente il numero random generato
+DATI DI LAVORO:
+INIZIO
+	elemento di risultato in posizione x  = //lanciare dadi
+FINE
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE Spostamentonellecelle;
+DATI DI INPUT:
+		Oca,array monodimensionale di caratteri, contiene le caselle del gioco
+	Caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+	Nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+	Num_giocatore, intero, >0, >=2 && <=4 , numero dei giocatori 
+	Lunghezza_percorso, intero  >=50 && <=90, contiene la distanza del percorso sceltA dall'utente 
+	Risultato, array monodimensionale di interi, con variabili solo  >=2 && <=12, variabile contenente il numero random generato
+	x, costante
+DATI DI OUTPUT:
+	Oca,array monodimensionale di caratteri, contiene le caselle del gioco
+	Caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+	Sommarisultato, intero >0, serve per salvare il lancio dadi precedente e far avanzare il personaggio rispetto al nuovo lancio
+	Flag, booleano, indica se viene fatto uno spostamento nelle caselle particolari
+DATI DI LAVORO:
+
+
+INIZIO:
+	flag=0 //inizializzo flag
+	Sommarisultato=elemento di risultato in posizione X +Sommarisultato 
+	//controlliamo se il giocatore è in una casella particolare, nel caso positivo, si attiverà l'effetto della casella.
+	elemento di oca in posizione sommarisultato= VerificareCaselleSpeciali(Sommarisultato,Risultato, Lunghezza_Percorso,Nome_Giocatore,Num_Giocatori,Oca,Caselle,X)
+	//controlliamo se il giocatore è in una casella particolare, nel caso positivo, si attiverà l'effetto della casella.
+	elemento di oca in posizione sommarisultato= VerificareCaselleparticolari(Sommarisultato,Risultato,Lunghezza_Percorso,Nome_Giocatore,Num_Giocatori,Oca,Caselle,X)
+	SE (flag=0)
+ALLORA 
+	elemento di oca in posizione sommarisultato=elemento di nome_giocatore in posizione x    //effettuato lo scambio
+FINE SE
+FINE
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE VerificareCaselleSpeciali;		 //funzione che controlla se la casella è multiplo di 9, SE si, ci salviamo il lancio fatto dal giocatore e lo ripetiamo la 2nda volta
+DATI DI INPUT:
+		Oca,array monodimensionale di caratteri, contiene le caselle del gioco
+		caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+		num_giocatore, intero, >0, >=2 && <=4 , numero dei giocatori 
+		lunghezza_percorso, intero  >=50 && <=90, contiene la distanza del percorso sceltA dall'utente 
+		sommarisultato, intero >0, serve per salvare il lancio dadi precedente e far avanzare il personaggio rispetto al nuovo lancio
+		Risultato, array monodimensionale di interi, con variabili solo  >=2 && <=12, variabile contenente il numero random generato
+		x, costante
+DATI DI OUTPUT:
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+		num_giocatore, intero, >0, >=2 && <=4 , numero dei giocatori 
+DATI DI LAVORO:
+
+INIZIO
+	SE(elemento di oca in posizione sommarisultato=="casella speciale")
+		ALLORA 
+		sommarisultato=sommarisultato+risultato //cioè il valore che è stato fatto con i dadi viene raddoppiato	
+	ALTRIMENTI 
+		elemento di oca in posizione sommarisultato= elemento di nome_giocatore in posizione x    //per spostare le celle, basta dare a oca il nome del giocatore sulla caselle su cui si è posizionato
+	FINE SE
+FINE
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE VerificareCaselleParticolari;
+DATI DI INPUT
+		Oca,array monodimensionale di caratteri, contiene le caselle del gioco
+		caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+		num_giocatore, intero, >0, >=2 && <=4 , numero dei giocatori 
+		lunghezza_percorso, intero  >=50 && <=90, contiene la distanza del percorso sceltA dall'utente 
+		sommarisultato, intero >0, serve per salvare il lancio dadi precedente e far avanzare il personaggio rispetto al nuovo lancio
+		Risultato, array monodimensionale di interi, con variabili solo  >=2 && <=12, variabile contenente il numero random generato
+		x, costante
+DATI DI OUTPUT
+		riporto, array di caratteri, serve per salvare il nome del giocatore maledetto
+		maledizione, intero >0, serve per indicare per quanti turni deve essere fermo
+		caduti, intero >0, serve per controllare se sono presenti 1 o più giocatori nella casella 
+		flag
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori aggiornato
+		Oca,array monodimensionale di caratteri, contiene le caselle di gioco aggiornato
+DATI DI LAVORO:
+
+INIZIO
+	SE(elemento di oca in posizione sommarisultato=="casella_ponte")
+		ALLORA sommarisultato=sommarisultato+risultato //cioè il valore che è stato fatto con i dadi viene raddoppiato
+	ALTRIMENTI 
+		SE(elemento di oca in posizione sommarisultato=="casella_locanda")
+		ALLORA  	riporto= elemento di nome_giocatore in posizione x
+		 		maledizione=3  //3 sono i turni fermo
+		 		elemento di nome_giocatore in posizione x = "maledetto"
+		 ALTRIMENTI 
+			SE (elemento di oca in posizione sommarisultato=="casella_pozzo")
+			ALLORA		caduti=caduti+1
+					riporto= elemento di nome_giocatore in posizione x
+		 			maledizione=-1  // metto -1 così i turni fermi sono praticamente infiniti visto che per uscire dalla caselle il risultato deve essere 0 
+			 ALTRIMENTI
+				SE (elemento di oca in posizione sommarisultato=="casella_prigione")
+				ALLORA		caduti=caduti+1
+						riporto= elemento di nome_giocatore in posizione x
+						maledizione=-1  // metto -1 così i turni fermi sono praticamente infiniti visto che per uscire dalla caselle il risultato deve essere 0 
+						 elemento di nome_giocatore in posizione x = "maledetto"
+				ALTRIMENTI 
+					SE (elemento di oca in posizione sommarisultato=="casella_labirinto")	
+					ALLORA		
+							labirinto=(33*lunghezza_percorso)/90) 		//33:90=x:lunghezza_percorso   x=6*lunghezza_percorso/90
+							elemento di oca in posizione labirinto = elemento di nome_giocatore in posizione x //spostamento
+							flag=1
+					ALTRIMENTI 
+						SE (elemento di oca in posizione sommarisultato=="casella_scheletro")
+						ALLORA	
+								elemento di oca in posizione 1= elemento di nome_giocatore in posizione x //spostamento
+								flag=1
+						FINE SE
+					FINE SE 
+				FINE SE
+			FINE SE
+		FINE SE
+	FINE SE				
+FINE
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE ControlloVincita;
+DATI DI INPUT:
+		Oca,array monodimensionale di caratteri, contiene le caselle del gioco
+		caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+		num_giocatore, intero, >0, >=2 && <=4 , numero dei giocatori 
+		lunghezza_percorso, intero  >=50 && <=90, contiene la distanza del percorso scelta dall'utente 
+		sommarisultato, intero >0, serve per salvare il lancio dadi precedente e far avanzare il personaggio rispetto al nuovo lancio
+		x, costante
+DATI DI OUTPUT:
+		Vittoria,booleano, indica se il giocatore numero x ha vinto VERO=vinto, FALSO=non ha vinto
+		Oca,array monodimensionale di caratteri, contiene le caselle del gioco
+DATI DI LAVORO	
+		differenza, intero >0, nel caso in cui con il lancio dei dadi il giocatore supera il limite massimo del percorso, tornerà indietro della differenza tra il percorso e il suo lancio di dadi						
+
+
+
+INIZIO
+	Vittoria=Falso
+	SE (elemento di oca in posizione sommarisultato == lunghezza_percorso)
+		Vittoria=vero
+	ALTRIMENTI
+		SE (elemento di oca in posizione sommarisultato > lunghezza_percorso)
+		ALLORA		differenza= sommarisultato-lunghezza_percorso 				// ci calcoliamo la differenza di quanto deve tornare indietro
+			elemento di oca in posizione lunghezza_percorso-differenza			// facendo in questo modo ci assicuriamo che il giocatore che ha superato il limite del percorso torni indietro 
+		FINE SE	
+	FINE SE
+FINE
+			 
+
+		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Funzione FinitoTurno;	//finisce il turno, il giocatore sceglie se tornare al menu principale , salvare la partita in corso o continuare la partita chiudendo questo menu
+
+
+DATI DI INPUT
+		Oca,array monodimensionale di caratteri, contiene le caselle del gioco
+		caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+		num_giocatore, intero, >0, >=2 && <=4 , numero dei giocatori 
+		lunghezza_percorso, intero  >=50 && <=90, contiene la distanza del percorso scelta dall'utente 
+		x, costante
+DATI DI OUTPUT
+		scelta,intero, >=0 <=4, variabile per gestire le varie scelte del giocatore per i vari menu
+DATI DI LAVORO
+
+INIZIO
+	SCRIVI"******* 1.1  TORNA MENU PRINCIPALE       *******"
+	SCRIVI"******* 1.2  SALVA PARTITA               *******"
+	SCRIVI"******* 1.3  CONTINUA	                *******"
+	ESEGUI
+		scelta=LEGGIDATASTIERA()
+	FINCHE ((scelta>=1 ) && (scelta<=3))
+	SE(scelta=="1")   //Tornare a menu principale 
+		ALLORA   Stampare_Menu_Iniziale ( lunghezza_percorso, nome_giocatore, num_giocatori)
+	ALTRIMENTI
+		SE(scelta=="2")		//salviamo partita in corso
+			ALLORA Salvare_Partita (num_giocatori, lunghezza_percorso)
+		ALTRIMENTI
+			SE(scelta=="3")	// chiude il menu e continua a giocare
+				ALLORA //chiudi menu 
+			FINE SE
+		FINE SE
+	FINE SE			
+FINE
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FUNZIONE Stampare_serpentina;
+DATI DI INPUT:
+		Oca,array monodimensionale di caratteri, contiene le caselle del gioco
+		caselle, array monodimensionale di interi, contenente il percorso in sè per sè
+		nome_giocatore array monodimensionale di caratteri , contiene i nomi dei giocatori
+		num_giocatore, intero, >0, >=2 && <=4 , numero dei giocatori 
+		lunghezza_percorso, intero  >=50 && <=90, contiene la distanza del percorso scelta dall'utente 
+DATI DI OUTPUT: 
+		//stampa serpentina, non ha output
+DATI DI LAVORO:
+		i, intero >0, conta il ciclo while totale, partendo dalla posizione 1.
+		n, intero >0, conta il ciclo al contrario per la serpentina
+		j, intero >0, conta il ciclo dritto per la SErpentina
+
+INIZIO: 
+	//stampa prima riga
+	i=1
+	MENTRE (i<=disposizione_elementi)
+		StampaAVideo (elemento di caselle in posizione i) 
+		StampaAVideo (elemento di oca in posizione i)	//dove è scritto elemento di oca, significa sia scrivere il giocatore, sia per scrivere le caselle particolari
+		i=i+1
+	FINE MENTRE 
+	i=1
+	//stampa righe successive
+	StampaAVideo ("Vai_a_capo")
+	MENTRE (i<=n)
+		//stampa righe in senso inverso
+		esito=Trovare_pari(i,esito)
+		SE (esito="vero")
+		ALLORA
+			j=n-1
+			MENTRE (j>=0)
+				(elemento di caselle in posizione i*disposizione_elementi+j) 
+				StampaAVideo (elemento di oca in posizione i*disposizione_elementi+j) 
+				j=j-1
+			FINE MENTRE
+		//stampa le righe in SEnso normale
+		ALTRIMENTI
+    			 // stampa le colonne in SEnso normale
+			j=1
+			  MENTRE (j<=n)
+				(elemento di caselle in posizione i*disposizione_elementi+j) 
+				StampaAVideo (elemento di oca in posizione i*disposizione_elementi+j) 
+				j=j+1
+			  FINE MENTRE
+	FINE MENTRE	
+FINE
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+				
+
+
+
+
+	

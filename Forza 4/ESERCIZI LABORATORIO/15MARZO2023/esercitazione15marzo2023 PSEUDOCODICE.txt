@@ -1,0 +1,132 @@
+Leggere in input, da file di testo, una sequenza di caratteri alfanumerici e memorizzarli nell’ordine 
+in cui sono stati letti. 
+Dopo aver memorizzato l’intera sequenza, eliminare le eventuali sottosequenze di elementi 
+delimitati dalle parentesi tonde (aperta all’inizio della sequenza, chiusa alla fine della sequenza), 
+sostituendole con un solo elemento contenente un asterisco “*”. 
+Stampare la sequenza ottenuta.
+Si tenga conto del fatto che la sequenza fornita in input non potrà contenere coppie di parentesi 
+che si “intersecano” e che inoltre per ogni parentesi aperta esiste una parentesi chiusa.
+Esempio: Si consideri la sequenza “a, b, (a, c, g), b, e, (p,q ), a, (x, x), f”.
+La sequenza di output sarà allora la seguente: a, b, (*), b, e, (*), a, (*), f.
+----------------
+
+Funzione ContaAsterischi
+INPUT
+Sequenza, sequenza alfanumerica di input, array monodimensionale di caratteri
+OUTPUT
+Asterischi, numero di asterischi, intero
+
+LAVORO
+i, indice di scorrimento sulla sequenza di caratteri,<=Calcolalunghezza(Sequenza)
+
+ALGORITMO
+INIZIO
+i=1
+Mentre(elemento di Sequenza in posizione i != FINESTRINGA)
+Se(elemento di Sequenza in posizione i=='*')
+Asterischi=Asterischi+1
+FINE
+i=i+1
+FINE
+
+
+
+
+Funzione ContaParentesi
+INPUT
+Sequenza, sequenza alfanumerica di input, array monodimensionale di caratteri
+OUTPUT
+Parentesi, numero di parentesi chiuse, intero
+
+ALGORITMO
+i, indice di scorrimento sulle sequenza di caratteri,<=Calcolalunghezza(Sequenza)
+
+
+ALGORITMO
+i=1
+Mentre(elemento di Sequenza in posizione i != FINESTRINGA)
+Se(elemento di Sequenza in posizione i==')')
+Parentesi=Parentesi+1
+FINE
+i=i+1
+FINE
+
+
+
+
+Funzione ControllaParentesi
+INPUT
+Sequenza, sequenza alfanumerica di input, array monodimensionale di caratteri
+OUTPUT
+Verifica, messaggio di verifica che annuncia se la sequenza di caratteri ha le parentesi aperte e chiuse in maniera
+corretta o se c'è qualche parentesi aperta ma non chiusa, booleano (1 corretta), (0 scorretta)
+
+Lavoro
+i, indice di scorrimento di Sequenza, intero >0
+contA, contatore delle parentesi aperte tonde nella Sequenza, intero >=0
+contB, contatore delle parentesi chiuse tonde nella Sequenza, intero >=0
+
+INIZIO
+i=1
+mentre(i<=Calcolalunghezza(Sequenza))
+contA=0
+contB=0
+se(elemento in posizione i di Sequenza=="(")
+allora
+contA=contA+1
+fine
+se(elemento in posizione i+1==")")
+allora
+contB=contB+1
+fine
+i=i+1
+fine
+se(contA>contB)
+allora
+Verifica=0
+altrimenti
+Verifica=1
+fine
+FINE
+-----------------------------------
+Funzione Calcolalunghezza --> Generale
+INPUT
+stringa, stringa di caratteri da calcolare la lunghezza, array di caratteri.
+OUPUT
+dimensione, dimensione della stringa, intero >0
+Lavoro
+i, indice di scorrimento nella stringa, diverso da carattere di fine stringa(/0)
+
+INIZIO
+i=1
+mentre(elemento in posizione i di stringa!="/0")
+i=i+1
+fine
+dimensione=i
+FINE
+----------------------------
+Funzione EliminaSottoSequenze 
+INPUT
+Sequenza, array di caratteri contenete una sequenza di caratteri, Array di caratteri monodimensionale terminato dal simbolo di finestringa
+OUTPUT
+Sequenza, sequenza di caratteri che si ottiene dopo aver eliminato le sottosequenze di elementi
+delimitati dalle parentesi tonde (aperta all’inizio della sequenza, chiusa alla fine della sequenza) sostituendole con un solo elemento contenente un asterisco , Array di caratteri monodimensionale terminato dal simbolo di finestringa
+
+Lavoro
+i, indice di scorrimento che trova la prima parentesi aperta di Sequenza, intero <=Calcolalunghezza(Sequenza)
+j, indice di scorrimento che trova la prima parentesi chiusa di Sequenza, intero <=Calcolalunghezza(Sequenza)
+
+ALGORITMO
+i=1
+Mentre(i<=Calcola_lunghezzaStringa(Sequenza))
+Se(elemento in posizione i di Sequenza == '(')
+j=i
+Mentre( elemento in posizione j+1 != ')' )
+Allora 
+//cancella elementi di Sequenza
+j=j+1
+fine
+elemento in posizione j-1 di Sequenza == *
+fine
+i=i+1
+FINE

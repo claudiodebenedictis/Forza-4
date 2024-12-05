@@ -1,0 +1,114 @@
+FUNZIONE menu
+DATI DI INPUT=
+    tabella, struttura di tipo  Gioco di dimensione RIGA , COLONNA
+    NUMERO1, array di caratteri di dimensione CN
+    NUMERO2, array di caratteri di dimensione CN
+    tipoGioco, puntatore a intero, indica il gioco scelto dal giocatore
+    tg1, puntatore a intero, turno giocatore1 
+    tg2, puntatore a intero, turno giocatore1 
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    risultato,array monodimensionale di interi
+    p, intero >0, contatore
+INIZIO
+    stampaTitolo
+    ESEGUI
+        STAMPA_A_VIDEO " 1. User vs User"
+        STAMPA_A_VIDEO " 2. User contro Computer"
+        STAMPA_A_VIDEO " 3. Computer contro Computer"
+        STAMPA_A_VIDEO  “4. Aiuto e Regole"
+        STAMPA_A_VIDEO " Scegli la modalita' di gioco: "
+        risultato = LEGGERE_DA_TASTIERA E SALVA IN tipoGioco
+        // Pulisce il buffer di input
+        MENTRE (LEGGERE_DA_TASTIERA) != ‘VAI A CAPO'
+        SE (risultato == 1 , tipoGioco >= 1 E tipoGioco <= scelta_aiuto)
+            ALLORA
+                SE (tipoGioco == scelta_aiuto)
+                    ALLORA
+                        aiuto
+                FINE SE
+        ALTRIMENTI
+            STAMPA_A_VIDEO "Input non valido. Per favore, inserisci un numero tra 1 e 4."
+    FINCHE ( tipoGioco < 1 O tipoGioco > 3)
+    //ciclo per caricamento barra
+    p=0 
+    MENTRE (p<=100) 
+        mostrare_caricamento_barra(p)
+         P=p+1
+        // Aggiungi una pausa per l'animazione
+  FINE MENTRE
+    STAMPA_A_VIDEO "VAI A CAPO" // Vai a capo alla fine dell'animazione
+    SE (tipoGioco != CvsC)
+        ALLORA
+            STAMPA_A_VIDEO "Inserisci il nome del giocatore:   "
+            LEGGERE_DA_TASTIERA E SALVA IN NUMERO1
+            SE tipoGioco == UvsU
+                ALLORA
+                    STAMPA_A_VIDEO "Inserisci il nome del secondo giocatore:   "
+                    LEGGERE_DA_TASTIERA E SALVA IN NUMERO2
+            ALTRIMENTI
+                NUMERO2=”CPU1”
+    ALTRIMENTI
+        NUMERO1=”CPU1”
+        NUMERO2=”CPU2”
+FINE
+
+FUNZIONE menuPrincipale
+DATI DI INPUT=
+    tabella, struttura di tipo Gioco di dimensione RIGA , COLONNA
+    NUMERO1, array di caratteri di dimensione CN
+    NUMERO2, array di caratteri di dimensione CN
+    tipoGioco,  intero >0, scelta del gioco da parte dell'utente
+    tg1, puntatore a intero, turno giocatore1 
+    tg2, puntatore a intero, turno giocatore2 
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    scelta, array di caratteri monodimensionale
+    p, intero >0 , contatore
+INIZIO
+    stampaTitolo
+    ESEGUI
+        stampaTitolo
+        STAMPA_A_VIDEO "Benvenuto nel gioco! Vuoi iniziare a giocare? (s/n): "
+        scelta = LEGGERE_DA_TASTIERA
+        MENTRE ((LEGGERE_DA_TASTIERA) != 'VAI A CAPO’)
+    FINCHE ( scelta != 's' E scelta != 'n' E scelta != 'S' E scelta != 'N')
+    SE (scelta == 's' O scelta == 'S')
+        ALLORA
+            //ciclo per caricamento barra
+p=0
+MENTRE( p<=100)
+   mostrare_caricamento_barra(p)
+   p=p+1
+                // Aggiungi una pausa per l'animazione
+            FINE MENTRE 
+            STAMPA_A_VIDEO "VAI A CAPO" // Vai a capo alla fine dell'animazione
+            menu(tabella, NUMERO1 , NUMERO2 , tipoGioco, tg1, tg2)
+    ALTRIMENTI
+        STAMPA_A_VIDEO "Arrivederci!"
+        TERMINA PROGRAMMA
+FINE
+
+FUNZIONE mostrare_caricamento_barra
+DATI DI INPUT=
+    p, intero >0 ,contatore 
+DATI DI OUTPUT=
+    Nessuno
+VARIABILI DI LAVORO=
+    i, intero >0 , contatore
+    PROGRESSO_BARRA
+INIZIO
+    STAMPA_A_VIDEO "Caricamento... ["
+   i=0
+   MENTRE (i<=PROGRESSO_BARRA)
+        SE (i < p * PROGRESSO_BARRA / 100)
+            ALLORA STAMPA_A_VIDEO "="
+        ALTRIMENTI STAMPA_A_VIDEO “ ”
+    FINE MENTRE
+    STAMPA_A_VIDEO "] " 
+ STAMPA_A_VIDEO p 
+ STAMPA_A_VIDEO "%%"
+    // Forza la stampa immediata sulla console
+FINE

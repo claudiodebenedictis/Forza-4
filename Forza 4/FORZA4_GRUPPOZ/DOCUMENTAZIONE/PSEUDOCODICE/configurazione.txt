@@ -1,0 +1,37 @@
+COSTANTI GLOBALI=
+//dimensioni del campo da gioco
+RIGA, intero = 9, Numero di righe
+COLONNA, intero = 8, Numero di colonne
+
+//caratteri stampati a video
+CARATTEREG1, carattere = 'X', Carattere del giocatore 1
+CARATTEREG2, carattere = 'O', Carattere del giocatore 2
+vuoto, carattere = '.', Carattere per uno spazio vuoto
+CVitt, carattere = 'V', Carattere per segnare la combinazione vincente
+
+//valore  nella matrice
+vuotoI, intero = 0, Valore di uno spazio vuoto
+g1I, intero = 1, Valore del giocatore 1
+g2I, intero = 2, Valore del giocatore 2
+vI, intero = 3, Valore per segnare la combinazione vincente
+
+//valori che puo assumere f in gioca
+FGioca, intero = 0, Partita in corso
+FG1, intero = 1, Ha vinto il giocatore 1
+FG2, intero = 2, Ha vinto il giocatore 2
+FPareggio, intero = 3, Pareggio
+
+//varie
+CN, intero = 15, Numero dei caratteri dei nomi dei giocatori
+NGV, intero = 4, Numero Gettoni per la Vittoria
+PROGRESSO_BARRA, intero = 40, Caricamento barra
+
+//tipologia di gioco
+UvsU, intero = 1, User contro User
+UvsC, intero = 2, User contro Computer
+CvsC, intero = 3, Computer contro Computer
+scelta_aiuto, intero = 4, Scelta aiuto
+
+//tipologia giocatore
+User, intero = 1, Tipologia Giocatore
+CPU, intero = 2, Tipologia Giocatore

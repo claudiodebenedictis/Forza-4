@@ -1,0 +1,39 @@
+Esercitazione del 22 marzo 2023
+Leggere in input, da file di testo, una sequenza di caratteri alfanumerici e memorizzarli nell’ordine
+in cui sono stati letti.
+Dopo aver memorizzato l’intera sequenza, verificare se e’ palindroma o no.
+Stampare un messaggio in base all’esito della verifica.
+
+
+Funzione Verifica_Palindroma
+
+INPUT
+Sequenza, array di caratteri contenete una sequenza di caratteri alfanumerici, Array di caratteri monodimensionale terminato dal simbolo di finestringa
+dimensione, dimensione di sequenza, array monodimensionale di caratteri contenente una sequenza di caratteri alfanumerici
+OUTPUT
+Verifica, verifica se la Sequenza di caratteri e palindroma o meno,booleano  0 falso  1 vero
+
+
+LAVORO
+POS1, indice che scorre dalla prima posizione i-esima della sequenza di caratteri,intero I<N
+POS2 , indice che scorre dall'ultima posizione j-esima della sequenza di caratteri, intero J>1
+
+ALGORITMO
+INIZIO
+pos1=1
+pos2=dimensione -1
+verifica=0 //se 0 uguale falso, se 1 uguale vero
+Mentre(pos1<dimensione/2)
+Mentre(pos2>1)
+Se(elemento in posizione pos1 di Sequenza==elemento in posizione pos2 di Sequenza)
+allora
+verifica=1
+altrimenti 
+verifica=0
+fine
+pos2--
+fine
+pos1++
+fine
+
+

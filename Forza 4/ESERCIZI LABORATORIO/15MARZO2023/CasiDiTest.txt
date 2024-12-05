@@ -1,0 +1,94 @@
+Casi di Test:
+-1
+
+INPUT
+((
+OUTPUT
+Errore doppia parentesi-->caso di test con successo
+
+-2
+INPUT
+(((
+OUTPUT
+Errore tripla parentesi-->caso di test con successo
+
+-3
+INPUT
+a
+OUTPUT
+a, --> CASO SUPERATO
+
+-4
+INPUT
+1
+OUTPUT
+1,--->CASO SUPERATO
+
+-5
+INPUT
+a()
+
+OUTPUT
+a()--> CASO SUPERATO
+
+-6
+INPUT
+()a
+
+OUTPUT
+()a--> CASO SUPERATO
+
+
+-7
+INPUT
+a(2)
+
+OUTPUT
+a(*)--> CASO SUPERATO
+
+-8
+INPUT
+(7)a
+
+OUTPUT
+(*)a--> CASO SUPERATO
+
+
+-9
+INPUT
+6t(2c)
+
+OUTPUT
+6t(**)--> CASO NON SUPERATO
+
+
+-10
+INPUT
+(7s)aa
+
+OUTPUT
+(**)aa--> CASO NON SUPERATO
+
+-11
+
+INPUT
+a(7)a(b)
+
+OUTPUT
+a(*)a(*)--> CASO SUPERATO
+
+
+-12
+
+INPUT
+a(7),(bb)
+
+OUTPUT
+a(*),(**)--> CASO  NON SUPERATO
+
+
+
+
+
+
+
